@@ -65,34 +65,35 @@ function parseSheet(data, docFile) {
     for (var k in head) {
         if (head[k] == "S/o") {
             vars[k] = "so";
-        }else
+        }
         if (head[k] == "Full Name") {
             vars[k] = "full_name";
-        }else
+        }
 
         if (head[k] == "Address 1") {
             vars[k] = "address_1";
-        }else
+        }
 
         if (head[k] == "Address 2") {
             vars[k] = "address_2";
-        }else if (head[k] == "IPC Location") {
+        }
+         if (head[k] == "IPC Location") {
             vars[k] = "iPC_Location";
-        }else
+        }
 
         if (head[k] == "City") {
             vars[k] = "city";
-        }else
+        }
         if (head[k] == "Pin") {
             vars[k] = "pin";
         }
         if (head[k] == "Title") {
             vars[k] = "title";
-        }else
+        }
 
         if (head[k] == "Date of Offer") {
             vars[k] = "date_of_offer";
-        }else
+        }
         if (head[k] == "Date of Joining") {
             vars[k] = "date_of_joining";
         }
