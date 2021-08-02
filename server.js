@@ -41,9 +41,14 @@ app.post('/import', upload.any(), async function (req, res) {
     const result = excelToJson({
         source: form[0].buffer
     });
-    parseSheet(result.Sheet1, form[1]);
-    res.send('Successfully file converted')
-
+    if(result){
+    const keys=Object.keys(result)
+    if(keys.length){
+        const firstKey=keys[0]
+        parseSheet(result.Sheet1 || result.Sheet3 || result[firstKey], form[1]);
+        res.status(200).send('Successfully file converted')
+    }
+}
 })
 
 

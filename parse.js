@@ -41,12 +41,12 @@ function createOffer(data, docFile) {
 
 
 function pad(a, position, extra) {
-    if (a.length <= position) {
+    if (a?.length <= position) {
         return a;
     }
     var b = "\t\t\t\t\t\t";
     if (extra) b = b + "\t";
-    return a.substr(0, position) + b + a.substr(position).trim();
+    return a?.substr(0, position) + b + a.substr(position).trim();
 }
 
 function myVariables(data) {
@@ -58,11 +58,14 @@ function myVariables(data) {
 
 
 function parseSheet(data, docFile) {
-
+   
     let head = data[0];
 
     let vars = [];
     for (var k in head) {
+        if (head[k] == "S/o") {
+            vars[k] = "so";
+        }else
         if (head[k] == "Full Name") {
             vars[k] = "full_name";
         }else
@@ -73,10 +76,8 @@ function parseSheet(data, docFile) {
 
         if (head[k] == "Address 2") {
             vars[k] = "address_2";
-        }else
-
-        if (head[k] == "IPC Location") {
-            vars[k] = "location";
+        }else if (head[k] == "IPC Location") {
+            vars[k] = "iPC_Location";
         }else
 
         if (head[k] == "City") {
@@ -84,7 +85,7 @@ function parseSheet(data, docFile) {
         }else
         if (head[k] == "Pin") {
             vars[k] = "pin";
-        }else
+        }
         if (head[k] == "Title") {
             vars[k] = "title";
         }else
@@ -94,25 +95,26 @@ function parseSheet(data, docFile) {
         }else
         if (head[k] == "Date of Joining") {
             vars[k] = "date_of_joining";
-        }else
-        if (head[k] == "S/o") {
-            vars[k] = "so";
-        }else {
-            if(head[k] !== undefined){
-                vars[k] = head[k] 
-            }
-           
         }
+        // else {
+        //     if(head[k] !== undefined){
+        //         const lowerCaseValue= head[k].toLowerCase()?.replace(' ','_')
+        //         console.log(lowerCaseValue,'lowerCaseValue')
+        //         vars[k] = lowerCaseValue
+        //     }
+           
+        // }
     }
-
     for (var k = 1; k < data.length; k++) {
         let raw = data[k];
         let trData = {};
         for (var a in raw) {
             if (vars[a]) {
                 trData[vars[a]] = raw[a];
+              
             }
         }
+     
         createOffer(trData, docFile)
 
     }
